@@ -14,7 +14,6 @@ Group:      Networking/File transfer
 BuildRequires: java-1.8.0-openjdk-devel
 BuildRequires: javapackages-tools
 BuildRequires: maven
-BuildRequires: xmvn
 
 %description
 Source for BiglyBT, a feature filled, open source, ad-free, bittorrent client. BiglyBT is forked from the original project and is being maintained by two of the original developers as well as members of the community. With over 20 years of development, there's a good chance we have the features you are looking for.
