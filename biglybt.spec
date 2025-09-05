@@ -3,7 +3,7 @@
 %define snap  3.4.0.1-SNAPSHOT
 
 Name:       biglybt
-Version:    3.8.0.2
+Version:    3.9.0.0
 Release:    1
 Summary:    Feature-filled Bittorrent client based on the Azureus open source project
 URL:        https://github.com/BiglySoftware/BiglyBT
