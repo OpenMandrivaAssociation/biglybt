@@ -1,6 +1,12 @@
+# Prior to building on ABF
+# Run `abb build` locally without the `tar zxf` line from prep or the --offline flag from build and comment out a file to break the build
+# Archive the resulting vendor folder within the build directories and name it as seen with Source1
+# Remove comments and test build with --offline again
+
 %global debug_package %{nil}
 %define uname BiglyBT
 %define snap  3.4.0.1-SNAPSHOT
+%define arch %(uname -m)
 
 Name:       biglybt
 Version:    3.9.0.0
@@ -21,12 +27,13 @@ Source for BiglyBT, a feature filled, open source, ad-free, bittorrent client. B
 
 %prep
 %autosetup -p1 -n %{uname}-%{version}
+# Must run without tar zxf line to generate Source1 archive
 tar zxf %{S:1}
 
 %build
-export  JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.x86_64/'
+export  JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.%{arch}/'
 export  PATH=$JAVA_HOME/bin:$PATH
-# Running the command below without the --offline flag will generate the Source1 archive file
+# Must run without offline flag to generate Source1 archive
 mvn clean package -DskipTests -Dmaven.repo.local=vendor/ --offline
 
 %install
