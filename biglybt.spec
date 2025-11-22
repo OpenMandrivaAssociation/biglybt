@@ -7,7 +7,8 @@ Version:    3.9.0.0
 Release:    1
 Summary:    Feature-filled Bittorrent client based on the Azureus open source project
 URL:        https://github.com/BiglySoftware/BiglyBT
-Source:     https://github.com/BiglySoftware/BiglyBT/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:    https://github.com/BiglySoftware/BiglyBT/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:    %{name}-%{version}-vendor.tar.gz
 License:    GPL 2.0
 Group:      Networking/File transfer
 
@@ -20,11 +21,13 @@ Source for BiglyBT, a feature filled, open source, ad-free, bittorrent client. B
 
 %prep
 %autosetup -p1 -n %{uname}-%{version}
+tar zxf %{S:1}
 
 %build
 export  JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.x86_64/'
 export  PATH=$JAVA_HOME/bin:$PATH
-mvn clean package -DskipTests
+# Running the command below without the --offline flag will generate the Source1 archive file
+mvn clean package -DskipTests -Dmaven.repo.local=vendor/ --offline
 
 %install
 mkdir -p %{buildroot}%{_bindir}
