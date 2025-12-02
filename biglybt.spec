@@ -10,7 +10,7 @@
 
 Name:       biglybt
 Version:    3.9.0.0
-Release:    1
+Release:    2
 Summary:    Feature-filled Bittorrent client based on the Azureus open source project
 URL:        https://github.com/BiglySoftware/BiglyBT
 Source0:    https://github.com/BiglySoftware/BiglyBT/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -51,11 +51,25 @@ cp uis/lib/*linux*.jar %{buildroot}%{_datadir}/java/%{name}/
 
 cat > %{buildroot}%{_bindir}/%{name} << 'EOF'
 #!/bin/bash
-exec java -cp "/usr/share/java/%{name}/*" com.%{name}.ui.Main "\$@"
+exec java -cp "/usr/share/java/%{name}/*" com.%{name}.ui.Main
 EOF
 chmod +x %{buildroot}%{_bindir}/%{name}
 rm -f %{_builddir}/%{uname}-%{version}/debugsourcefiles.list
 chmod -R a+rX %{buildroot}
+
+cat > %{_builddir}/%{uname}-%{version}/assets/linux/%{name}.desktop << 'EOF'
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=BiglyBT
+GenericName=BitTorrent Client
+Exec=biglybt %U
+Icon=biglybt.svg
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/magnet;application/x-bittorrent;application/x-biglybt;x-scheme-handler/biglybt;
+Categories=Network;FileTransfer;P2P;GTK;Java;
+StartupWMClass=BiglyBT
+EOF
 
 install -m 644 assets/linux/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 install -m 644 assets/linux/%{name}.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
