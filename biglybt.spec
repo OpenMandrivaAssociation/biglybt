@@ -9,12 +9,12 @@
 %define arch %(uname -m)
 
 Name:       biglybt
-Version:    3.9.0.0
-Release:    2
+Version:    4.0.0.0
+Release:    1
 Summary:    Feature-filled Bittorrent client based on the Azureus open source project
 URL:        https://github.com/BiglySoftware/BiglyBT
 Source0:    https://github.com/BiglySoftware/BiglyBT/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:    %{name}-%{version}-vendor.tar.gz
+Source1:    %{name}-%{version}-vendor.tar.xz
 License:    GPL 2.0
 Group:      Networking/File transfer
 
@@ -27,8 +27,8 @@ Source for BiglyBT, a feature filled, open source, ad-free, bittorrent client. B
 
 %prep
 %autosetup -p1 -n %{uname}-%{version}
-# Must run without tar zxf line to generate Source1 archive
-tar zxf %{S:1}
+# Must run without tar xJf line to generate Source1 archive
+tar xJf %{S:1}
 
 %build
 export  JAVA_HOME='/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.302.%{arch}/'
